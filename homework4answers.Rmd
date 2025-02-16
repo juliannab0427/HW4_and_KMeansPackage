@@ -1,0 +1,179 @@
+---
+title: "Homework4 Answers"
+author: "Julianna Bruzzese"
+date: "2025-02-13"
+output: html_document
+---
+
+### Data Structures
+
+1) The scan() command can be used for reading data into a vector or list from a file. The readLines() command can be used to read a text file line by line. The read_html() command can extract data from HTML pages. The readr command can read data from csv, tsv, or fwf files. The readxl command can import excel files. Many of these commands compare to others that we discussed in class, but have key differences. For example, scan() is capable of reading raw input, while read.table() is used mainly for tabular data. While readxl can only read Excel files, read.xlsx() can both read and write Excel files.To import a dataset called "tourism_dataset_5000" into R, I used the following code:
+```{r tourism, eval=FALSE}
+library(readr)
+tourism <- read.csv("tourism_dataset_5000.csv")
+print(tourism)
+```
+
+
+2) S3 is a simple, easy to use class that allows your functions to return detailed results with user-friendly displays. S4 is a more rigorous class that is well-suited for large systems that evolve over time. R6 can be used to model data that comes from a web API, and can support encapsulation, inheritance, and mutable objects. Essentially, S3 is the simplest, and would be used in situations that are quick and easy, while S4 is moderate in terms of difficulty, and R6 being the most complex. 
+
+### R Markdown
+
+1) Copy of Rmarkdown_example.html will be in other file.
+
+2) Here is a screenshot showing that I completed the R Markdown Tutorial: 
+![Certificate](C:/Users/julia/Downloads/hw4certificate.jpg)
+
+### Tidyverse
+
+1) d
+
+2) b
+
+3) c
+
+4) c,d,e
+
+5) The code I used to add the rate column:
+```{r q5, eval=FALSE}
+murders <- mutate(murders, rate = ((total / population) * 100000))
+```
+
+6) The code I used to add the rank column:
+```{r q6, eval=FALSE}
+murders <- mutate(murders, rank = rank(-rate))
+```
+
+7) The code I used to display the state names and abbreviations:
+```{r q7, eval=FALSE}
+select(murders, state, abb)
+```
+
+8) The code I used to display the top five states with the highest murder rates:
+```{r q8, eval=FALSE}
+filter(murders, rank <= 5)
+```
+
+9) The code I used to filter out the South, and then count how many are not South:
+```{r q9, eval=FALSE}
+no_south <- filter(murders, region != "South")
+nrow(no_south)
+```
+There are 34 states that are not in the south.
+
+10) The code I used to create a data frame with only Northeast and West states, and then count:
+```{r q10, eval=FALSE}
+murders_nw <- filter(murders, region %in% c("Northeast", "West"))
+nrow(murders_nw)
+```
+There are 22 states in both the Northeast and the West.
+
+11) The code I used to create a my_states table of only states from the Northeast or the West, with a rate less than 1:
+```{r q11, eval=FALSE}
+my_states <- filter(murders, (region == "Northeast" | region == "West") & rate < 1)
+```
+Then to only show the state, rate, and rank, I used this code:
+```{r q11.2, eval=FALSE}
+select(my_states, state, rate, rank)
+```
+
+12) To repeat the outcome of the previous exercise using a pipe, I used the following code:
+```{r q12, eval=FALSE}
+murders %>% filter((region == "Northeast" | region == "West") & rate < 1) %>% select(state, rate, rank)
+```
+
+13) The code I used to create the my_states data frame:
+```{r q13, eval=FALSE}
+data(murders)
+my_states <- murders %>% mutate(rate = (total / population) * 100000) %>% mutate(rank = rank(-rate)) %>% filter((region == "Northeast" | region == "West") & rate < 1) %>% select(state, rate, rank)
+```
+
+14) The code I used to find the mean and SD of 20-29 yo females:
+```{r q14, eval=FALSE}
+ref <- filter(NHANES, Gender == "female", AgeDecade == " 20-29") %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE), SD = sd(BPSysAve, na.rm=TRUE))
+```
+The average is 108.4224 and the SD is 10.14668
+
+15) The code I used to assign the average to a value called ref_avg:
+```{r q15, eval=FALSE}
+ref_avg <- filter(NHANES, Gender == "female", AgeDecade == " 20-29") %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE)) %>% pull(Avg)
+```
+
+16) The code I used to report the minimum and maximum values:
+```{r q16, eval=FALSE}
+ref_min_max <- filter(NHANES, Gender == "female", AgeDecade == " 20-29") %>% summarise(minimum = min(BPSysAve, na.rm=TRUE), maximum = max(BPSysAve, na.rm=TRUE))
+```
+The min is 84 and the max is 179
+
+17) The code I used to separately calculate mean and sd for each age group of females:
+```{r q17, eval=FALSE}
+ref_fem <- filter(NHANES, Gender == "female") %>% group_by(AgeDecade) %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE), SD = sd(BPSysAve, na.rm=TRUE))
+```
+
+18) The code I used to do the same for males:
+```{r q18, eval=FALSE}
+ref_male <- filter(NHANES, Gender == "male") %>% group_by(AgeDecade) %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE), SD = sd(BPSysAve, na.rm=TRUE))
+```
+
+19) The code I used to combine:
+```{r q19, eval=FALSE}
+ref_age_gen <- NHANES %>% group_by(AgeDecade, Gender) %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE), SD = sd(BPSysAve, na.rm=TRUE))
+```
+
+20) The code I used to sort avg based on race for males:
+```{r q20, eval=FALSE}
+ref_race <- filter(NHANES, Gender == "male", AgeDecade == " 40-49") %>% group_by(Race1) %>% summarise(Avg = mean(BPSysAve, na.rm=TRUE), SD = sd(BPSysAve, na.rm=TRUE)) %>% arrange(Avg)
+```
+
+21) b
+
+22) The code I used to convert murders into a tibble:
+```{r q22, eval=FALSE}
+murders_tibble <- as_tibble(murders)
+```
+
+23) The code I used to create a tibble grouped by region:
+```{r q23, eval=FALSE}
+murders_region <- as_tibble(murders) %>% group_by(region)
+```
+
+24) The code I used to rewrite the given code:
+```{r q24, eval=FALSE}
+murders %>% pull(population) %>% log() %>% mean() %>% exp()
+```
+The answer when you run both versions comes out to 3675209
+
+25) The code I used to create the data frame:
+```{r q25, eval=FALSE}
+dfmap <- map_df(1:100, ~data.frame(n = .x, s_n = sum(1:.x), s_n_2 = sum(1:.x)))
+```
+
+### R Packages and Shiny
+
+1) The app uses function(input, output, session):
+```{r kmeanstutorial, eval=FALSE}
+{selectedData <- reactive({iris[, c(input$xcol, input$ycol)]}) 
+clusters <- reactive({kmeans(selectedData(), input$clusters)})
+output$plot1 <- renderPlot({palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+par(mar = c(5.1, 4.1, 0, 1))
+plot(selectedData(), col = clusters()$cluster, pch = 20, cex = 3)
+points(clusters()$centers, pch = 4, cex = 4, lwd = 4)})}
+```
+
+It uses the iris data set and allows the plot to show various different options based on sepal or petal length or width. It color codes the clusters, and allows for any number of clusters to be shown on the plot at the users discretion. The par function sets graphical parameters, and the reactive function is an expression whose results can change over time. This allows for the entire function to re-execute when a value is changed. Overall, it allows for a scatter plot that can be changed in a variety of ways, making visualizing the data easy.
+
+
+2 and 3. After making the K means R package, I posted it in a GitHub repository linked here:
+[GitHub Repository: KMeansPackage](https://github.com/juliannab0427/HW4_and_KMeansPackage)
+
+
+### References
+
+https://www.kaggle.com/datasets/ziya07/cultural-tourism-dataset?resource=download
+
+https://www.datacamp.com/tutorial/r-objects-and-classes
+
+https://adv-r.hadley.nz/oo.html
+
+https://chatgpt.com/
+
