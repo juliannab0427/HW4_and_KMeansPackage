@@ -2,11 +2,15 @@
 title: "RMarkdown Example (COPY)"
 author: "Julianna Bruzzese"
 date: "2025-02-13"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: "flatly"
 ---
 
 # Introduction and Goals
-This Homework exercise is to verify that you can recreate and run R markdown scripts and properly knit them. Your goal will be to recreate the .Rmd code for this document, Special thanks for to the code by [Augie Wifler](https://rpubs.com/augie-wifler/993548) from which some of this code was obtained and modified.
+This Homework exercise is to verify that you can recreate and run R markdown scripts and properly knit them. Your goal will be to recreate the `.Rmd` code for this document, Special thanks for to the code by [Augie Wifler](https://rpubs.com/augie-wifler/993548) from which some of this code was obtained and modified.
 
 # R Markdown Basics
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com. A handy cheatsheet can also be found here https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf.
@@ -15,7 +19,7 @@ When you click the Knit button at the top of the Rstudio interface, a document w
 
 ## {.tabset}
 ### The Header
-At the top of your .Rmd you see:
+At the top of your `.Rmd` you see:
 ```
 ---
 title: "Nanostring Analysis"
@@ -31,7 +35,7 @@ editor_options:
   chunk_output_type: console
 ---
 ```
-One parameter that we will highlight is output. By changing this to, say, pdf_document, we can control the type of output that is produced.
+One parameter that we will highlight is `output`. By changing this to, say, `pdf_document`, we can control the type of output that is produced.
 
 ### Code chunks
 R code can be inserted in gray sections as follows (see below). You can insert one anywhere by directly coding them into your document, by clicking the insert tab up above, or by using the hot-key combination of **Ctrl-Alt-i:**
@@ -41,9 +45,9 @@ summary(pressure)
 You can run each code chunk by clicking the green arrow in the upper right hand corner of the gray box.
 
 ### Code chunk options (including global options)
-You can name each code chunk by adding a short description after the r. For example, an .Rmd file usually starts with a chunk named {r setup}, but each name must be unique (beware if you are copying and modifying code chunks - which is a clever thing to do - but be sure to give it a new name before you try to knit).
+You can name each code chunk by adding a short description after the r. For example, an `.Rmd` file usually starts with a chunk named `{r setup}`, but each name must be unique (beware if you are copying and modifying code chunks - which is a clever thing to do - but be sure to give it a new name before you try to knit).
 
-The first line of code in this chunk sets default printing levels for all future code chunks. echo=TRUE means that your code will always be included in your knitted document, along with any output. For homework assignments, you should almost always use echo = TRUE so that we can evaluate your code, but if you don’t want to include the code (e.g., lots of ggplot code to generate a plot), you can use echo = FALSE to prevent the code from being printed.
+The first line of code in this chunk sets default printing levels for all future code chunks. `echo=TRUE` means that your code will always be included in your knitted document, along with any output. For homework assignments, you should almost always use `echo = TRUE` so that we can evaluate your code, but if you don’t want to include the code (e.g., lots of ggplot code to generate a plot), you can use `echo = FALSE` to prevent the code from being printed.
 
 The second line of code sets the output width to 80, which will fit on most monitors (including laptops). You can change this to a smaller value if you have problems viewing all output, or larger values to prevent line-wrap.
 ```{r options, eval=FALSE}
@@ -67,7 +71,7 @@ As you can see above in the Rmd file, I included three # symbols in front of the
 ### Text formatting
 Including an asterisk symbol in front of and behind text will *italicize it.* Using two asterisks in a row will make the text **bold.**
 
-Before you knit, it is important that **YOUR CODE IS ERROR FREE, COMPLETE, AND IN PROPER ORDER.** If not, you will get error messages when you try to knit that are not easy to interpret. So before you knit an .Rmd document, it’s good to start with a clean global environment and run every code chunk starting from the beginning. If there are no errors, you should be able to knit.
+Before you knit, it is important that **YOUR CODE IS ERROR FREE, COMPLETE, AND IN PROPER ORDER.** If not, you will get error messages when you try to knit that are not easy to interpret. So before you knit an `.Rmd` document, it’s good to start with a clean global environment and run every code chunk starting from the beginning. If there are no errors, you should be able to knit.
 
 ### More on Markdown
 R markdown is a format for **literate programming** documents. It is based on **markdown**, a markup language that is widely used to generate html pages. You can learn more about markdown here: [click here](https://www.markdowntutorial.com/)
@@ -76,7 +80,7 @@ R markdown is a format for **literate programming** documents. It is based on **
 
 ## {.tabset}
 ### Load libraries
-Here is a code chunk where I load any R packages that I want to use. dplyr is a great package for data manipulation. ggplot2 is a great package for plotting data. Cheatsheets for dplyr and ggplot2 can be found here:
+Here is a code chunk where I load any R packages that I want to use. `dplyr` is a great package for data manipulation. `ggplot2` is a great package for plotting data. Cheatsheets for dplyr and ggplot2 can be found here:
 
 dplyr:https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
@@ -91,7 +95,7 @@ require(cowsay)
 ```
 
 ### If R seems scary
-There are many ways to get help! Google is your friend. If you’re having a coding issue, odds are someone else has had that same problem, and before you can fully type in your question you’ll find that Google autofills for you. You’ll also find that there are many ways to do the same thing. If you were in Biometry, you’re probably familar with the R package called swirl. This is a nice user friendly package that can teach you some basic R commands and statistical analyses while you use R.
+There are many ways to get help! Google is your friend. If you’re having a coding issue, odds are someone else has had that same problem, and before you can fully type in your question you’ll find that Google autofills for you. You’ll also find that there are many ways to do the same thing. If you were in Biometry, you’re probably familar with the R package called `swirl`. This is a nice user friendly package that can teach you some basic R commands and statistical analyses while you use R.
 ```{r yoda, eval=FALSE}
 # you may edit this message, as needed!
 # you may also choose a different animal if you don't like yoda
@@ -145,7 +149,7 @@ say("Do this I can!", "yoda")
 ```
 
 ### Loading data
-This next code chunk loads data and does some basic summaries. iris is a default data set included in the R datasets. The data() function is only used if it is from an R package. If you’re using your own dataset, you often need to read in the data using other methods (we will go over this at some future time). The head() function shows your first six observations and tail() will display your last six observations. The str() tells you the type of data for each column (i.e., numeric for the first 4 variables and factor (categorical) for Species); glimpse() is a tidyverse version of str().
+This next code chunk loads data and does some basic summaries. `iris` is a default data set included in the R datasets. The `data()` function is only used if it is from an R package. If you’re using your own dataset, you often need to read in the data using other methods (we will go over this at some future time). The `head()` function shows your first six observations and `tail()` will display your last six observations. The `str()` tells you the type of data for each column (i.e., numeric for the first 4 variables and factor (categorical) for Species); `glimpse()` is a tidyverse version of `str()`.
 
 These are handy functions to use when you first load data to make sure it was properly imported into R.
 
@@ -163,7 +167,7 @@ str(iris)
 
 ### Data manipulation with dplyr
 
-Now we’ll do some simple data manipulation to showcase the dplyr package, creating a new summary dataset called slBYspecies to examine differences in sepal length among the three species of iris. In the code chunk below, %>% are called pipes, and they are tidyverse shorthand for “do all of these things in sequence”. There are no NA observations in the iris data, so the na.rm = TRUE statements aren’t needed here, but most biological data have missing values, and this code is needed to prevent errors.
+Now we’ll do some simple data manipulation to showcase the dplyr package, creating a new summary dataset called `slBYspecies` to examine differences in sepal length among the three species of iris. In the code chunk below, `%>%` are called pipes, and they are tidyverse shorthand for “do all of these things in sequence”. There are no NA observations in the iris data, so the `na.rm = TRUE` statements aren’t needed here, but most biological data have missing values, and this code is needed to prevent errors.
 ```{r dplyr, include=FALSE}
 library(dplyr)
 ```
@@ -186,7 +190,7 @@ slBYspecies
 ```
 
 ### Plotting with ggplot2
-Here are some basic plots with ggplot2. This is mainly to demonstrate how you can have figures embedded within your knitted document. However, it will also give you an intro to using ggplot2.
+Here are some basic plots with `ggplot2`. This is mainly to demonstrate how you can have figures embedded within your knitted document. However, it will also give you an intro to using `ggplot2`.
 ```{r ggplot, include=FALSE}
 library(ggplot2)
 ```
